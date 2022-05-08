@@ -15,7 +15,6 @@ headers = {
 def searchEs(movie):
     defaultHost = "http://192.168.3.90:9200"
     searchUrl = defaultHost + '/_search'
-    print('searchUrl:', searchUrl)
     queryDatas = {
     "query": {
         "bool": {
@@ -69,6 +68,7 @@ for message in consumer:
     movieInfo = json.loads(message.value.decode('utf-8'))
     num = searchEs(movieInfo['name'])
     if(num == 0):
+        print('download:', movieInfo['name'])
         pyAria2 = PyAria2(secret='prc_password')
         pyAria2.addUri(uris = movieInfo['magnet'], position= {"dir":"/downloads"})
 
